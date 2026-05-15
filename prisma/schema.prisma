@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id         String      @id @default(cuid())
+  name       String
+  specialty  String
+  photo      String?
+  bookings   Booking[]
+  schedules  Schedule[]
+  createdAt  DateTime    @default(now())
+}
+
+model Schedule {
+  id         String    @id @default(cuid())
+  day        String
+  startTime  String
+  endTime    String
+
+  doctorId   String
+  doctor     Doctor @relation(fields: [doctorId], references: [id])
+
+  createdAt  DateTime @default(now())
+}
+
+model Booking {
+  id             String         @id @default(cuid())
+  patientName    String
+  patientPhone   String
+  complaint      String?
+
+  bookingDate    DateTime
+  bookingTime    String
+
+  status         BookingStatus @default(PENDING)
+
+  doctorId       String
+  doctor         Doctor @relation(fields: [doctorId], references: [id])
+
+  createdAt      DateTime @default(now())
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import SectionTitle from "./section-title";
 import { 
   Card, 
@@ -15,53 +18,55 @@ import {
   HeartPulse 
 } from "lucide-react";
 
-const services = [
-  {
-    title: "General Dentistry",
-    description: "Comprehensive oral health checkups, cleanings, and preventative care for all ages.",
-    icon: <Smile className="h-10 w-10 text-primary" />,
-    color: "bg-blue-50",
-  },
-  {
-    title: "Cosmetic Dentistry",
-    description: "Enhance your smile with teeth whitening, veneers, and aesthetic restorations.",
-    icon: <Sparkles className="h-10 w-10 text-purple-600" />,
-    color: "bg-purple-50",
-  },
-  {
-    title: "Orthodontics",
-    description: "Straighten your teeth and correct bite issues with modern braces or clear aligners.",
-    icon: <Activity className="h-10 w-10 text-green-600" />,
-    color: "bg-green-50",
-  },
-  {
-    title: "Pediatric Care",
-    description: "Specialized dental care for children in a friendly, gentle environment.",
-    icon: <Baby className="h-10 w-10 text-amber-600" />,
-    color: "bg-amber-50",
-  },
-  {
-    title: "Emergency Care",
-    description: "Immediate assistance for dental trauma, severe pain, or broken teeth.",
-    icon: <HeartPulse className="h-10 w-10 text-rose-600" />,
-    color: "bg-rose-50",
-  },
-  {
-    title: "Dental Implants",
-    description: "Permanent and natural-looking solutions for missing teeth using the latest technology.",
-    icon: <ShieldCheck className="h-10 w-10 text-sky-600" />,
-    color: "bg-sky-50",
-  },
-];
-
 export default function ServicesSection() {
+  const t = useTranslations("services");
+
+  const services = [
+    {
+      title: t("items.general.title"),
+      description: t("items.general.description"),
+      icon: <Smile className="h-10 w-10 text-primary" />,
+      color: "bg-blue-50",
+    },
+    {
+      title: t("items.cosmetic.title"),
+      description: t("items.cosmetic.description"),
+      icon: <Sparkles className="h-10 w-10 text-purple-600" />,
+      color: "bg-purple-50",
+    },
+    {
+      title: t("items.orthodontics.title"),
+      description: t("items.orthodontics.description"),
+      icon: <Activity className="h-10 w-10 text-green-600" />,
+      color: "bg-green-50",
+    },
+    {
+      title: t("items.pediatric.title"),
+      description: t("items.pediatric.description"),
+      icon: <Baby className="h-10 w-10 text-amber-600" />,
+      color: "bg-amber-50",
+    },
+    {
+      title: t("items.emergency.title"),
+      description: t("items.emergency.description"),
+      icon: <HeartPulse className="h-10 w-10 text-rose-600" />,
+      color: "bg-rose-50",
+    },
+    {
+      title: t("items.implants.title"),
+      description: t("items.implants.description"),
+      icon: <ShieldCheck className="h-10 w-10 text-sky-600" />,
+      color: "bg-sky-50",
+    },
+  ];
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
-          subtitle="Our Expert Services"
-          title="Comprehensive Care for Your Smile"
-          description="We offer a wide range of dental services to help you achieve and maintain optimal oral health."
+          subtitle={t("subtitle")}
+          title={t("title")}
+          description={t("description")}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

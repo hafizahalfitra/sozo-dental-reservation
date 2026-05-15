@@ -1,12 +1,15 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, Sparkles, Star, ShieldCheck, Play, MousePointer2 } from "lucide-react";
 
 export default function HeroSection() {
+  const t = useTranslations("hero");
+  
   const fadeUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -53,7 +56,7 @@ export default function HeroSection() {
                 >
                   <Sparkles size={14} className="mr-2 text-primary animate-pulse" />
                   <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary">
-                    Next-Gen Dental Experience
+                    {t("badge")}
                   </span>
                 </Badge>
               </motion.div>
@@ -62,9 +65,9 @@ export default function HeroSection() {
                 variants={fadeUp}
                 className="text-6xl md:text-[92px] font-bold tracking-[-0.05em] leading-[0.85] text-slate-900 dark:text-white"
               >
-                Refining the <br />
+                {t("title")} <br />
                 <span className="relative inline-block mt-2">
-                  <span className="font-serif italic font-light text-primary lowercase pr-4">Art of Smiling.</span>
+                  <span className="font-serif italic font-light text-primary lowercase pr-4">{t("titleItalic")}</span>
                   <motion.svg 
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -81,17 +84,16 @@ export default function HeroSection() {
                 variants={fadeUp}
                 className="max-w-xl mx-auto lg:mx-0 text-lg md:text-xl text-slate-600 dark:text-slate-400 font-normal leading-relaxed"
               >
-                Temukan harmoni antara teknologi modern dan kenyamanan personal. Kami tidak hanya merawat gigi, kami mendesain rasa percaya diri Anda.
+                {t("description")}
               </motion.p>
 
               <motion.div 
                 variants={fadeUp}
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8"
               >
-                {/* FIXED: Background div moved inside Link to solve React.Children.only error */}
                 <Button asChild size="lg" className="group relative h-16 px-10 rounded-full bg-slate-900 dark:bg-white dark:text-black overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-slate-900/10">
                   <Link href="/booking" className="relative z-10 flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase">
-                    Book Treatment
+                    {t("cta")}
                     <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                     <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
                   </Link>
@@ -102,7 +104,7 @@ export default function HeroSection() {
                     <Play size={16} className="fill-current relative z-10" />
                     <div className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
                   </div>
-                  <span>Virtual Tour</span>
+                  <span>{t("watchTour")}</span>
                 </button>
               </motion.div>
 
@@ -122,7 +124,7 @@ export default function HeroSection() {
                       +8
                     </div>
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Board Certified Doctors</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">{t("specialists")}</p>
                 </div>
 
                 <div className="h-10 w-[1px] bg-slate-200 dark:bg-slate-800 hidden sm:block" />
@@ -132,7 +134,7 @@ export default function HeroSection() {
                     {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
                     <span className="ml-2 text-sm font-bold text-slate-900 dark:text-white">5.0</span>
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Top-Rated Clinic</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">{t("satisfaction")}</p>
                 </div>
               </motion.div>
             </motion.div>

@@ -1,7 +1,10 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import SectionTitle from "@/components/shared/section-title";
 import DoctorCard from "./doctor-card";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
 
 const featuredDoctors = [
@@ -35,20 +38,22 @@ const featuredDoctors = [
 ];
 
 export default function DoctorPreviewSection() {
+  const t = useTranslations("doctors");
+
   return (
     <section className="py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <SectionTitle
             align="left"
-            subtitle="Our Specialists"
-            title="Meet Our Expert Dental Team"
-            description="Our doctors are highly qualified professionals committed to providing the best dental care for you and your family."
+            subtitle={t("subtitle")}
+            title={t("title")}
+            description={t("description")}
             className="mb-0"
           />
           <Button asChild variant="ghost" className="text-primary hover:text-primary hover:bg-primary/5 text-lg font-bold group">
             <Link href="/doctors" className="flex items-center">
-              View All Doctors
+              {t("viewAll")}
               <ArrowRight size={20} className="ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
@@ -63,7 +68,7 @@ export default function DoctorPreviewSection() {
         {/* Mobile view only button */}
         <div className="mt-10 md:hidden">
           <Button asChild variant="outline" className="w-full rounded-xl py-6 border-slate-200 text-primary">
-            <Link href="/doctors">View All Doctors</Link>
+            <Link href="/doctors">{t("viewAll")}</Link>
           </Button>
         </div>
       </div>

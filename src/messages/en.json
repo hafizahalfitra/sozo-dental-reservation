@@ -1,0 +1,106 @@
+{
+  "navbar": {
+    "home": "Home",
+    "doctors": "Doctors",
+    "services": "Services",
+    "about": "About",
+    "bookAppointment": "Book Appointment",
+    "emergencyCall": "Emergency Call"
+  },
+  "hero": {
+    "badge": "Next-Gen Dental Experience",
+    "title": "Refining the",
+    "titleItalic": "Art of Smiling.",
+    "description": "Discover the harmony between modern technology and personal comfort. We don't just treat teeth, we design your self-confidence.",
+    "cta": "Reserve Visit",
+    "watchTour": "Virtual Tour",
+    "specialists": "Expert Specialists",
+    "satisfaction": "Patient Satisfaction"
+  },
+  "services": {
+    "subtitle": "Our Expert Services",
+    "title": "Comprehensive Care for Your Smile",
+    "description": "We offer a wide range of dental services to help you achieve and maintain optimal oral health.",
+    "items": {
+      "general": {
+        "title": "General Dentistry",
+        "description": "Comprehensive oral health checkups, cleanings, and preventative care for all ages."
+      },
+      "cosmetic": {
+        "title": "Cosmetic Dentistry",
+        "description": "Enhance your smile with teeth whitening, veneers, and aesthetic restorations."
+      },
+      "orthodontics": {
+        "title": "Orthodontics",
+        "description": "Straighten your teeth and correct bite issues with modern braces or clear aligners."
+      },
+      "pediatric": {
+        "title": "Pediatric Care",
+        "description": "Specialized dental care for children in a friendly, gentle environment."
+      },
+      "emergency": {
+        "title": "Emergency Care",
+        "description": "Immediate assistance for dental trauma, severe pain, or broken teeth."
+      },
+      "implants": {
+        "title": "Dental Implants",
+        "description": "Permanent and natural-looking solutions for missing teeth using the latest technology."
+      }
+    }
+  },
+  "doctors": {
+    "subtitle": "Our Specialists",
+    "title": "Meet Our Expert Dental Team",
+    "description": "Our doctors are highly qualified professionals committed to providing the best dental care for you and your family.",
+    "viewAll": "View All Doctors",
+    "card": {
+      "experience": "Yrs Experience",
+      "reviews": "reviews",
+      "bookNow": "Book Now",
+      "viewProfile": "View Profile"
+    }
+  },
+  "whyChooseUs": {
+    "subtitle": "Why Choose Us",
+    "title": "Experience Dental Care Reimagined",
+    "description": "We combine medical excellence with a premium hospitality experience to make your dental visits something to look forward to.",
+    "yearsExp": "Years Experience",
+    "features": {
+      "doctors": {
+        "title": "Expert Doctors",
+        "description": "Our team consists of highly qualified and experienced dental specialists."
+      },
+      "tech": {
+        "title": "Advanced Technology",
+        "description": "We use the latest dental equipment and digital imaging for precise diagnosis."
+      },
+      "patient": {
+        "title": "Patient-First Approach",
+        "description": "Your comfort and satisfaction are our top priorities at every visit."
+      },
+      "scheduling": {
+        "title": "Convenient Scheduling",
+        "description": "Flexible appointment times including evenings and weekends for your convenience."
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to Start Your Journey to a",
+    "titleHighlight": "Perfect Smile?",
+    "description": "Book your appointment today and experience the SOZO Dental difference. New patients get a free initial consultation!",
+    "button": "Book Appointment Now",
+    "orCall": "Or Call Us"
+  },
+  "footer": {
+    "description": "Providing world-class dental services with a patient-first approach. Your health and beautiful smile are our top priorities.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "openingHours": "Opening Hours",
+    "emergency": "Emergency calls are accepted 24/7",
+    "rights": "All rights reserved.",
+    "monFri": "Mon - Fri",
+    "sat": "Saturday",
+    "sun": "Sunday",
+    "closed": "Closed"
+  }
+}

@@ -1,8 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Stethoscope, Calendar, Star } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 interface DoctorCardProps {
   id: string;
@@ -23,6 +26,8 @@ export default function DoctorCard({
   reviews,
   experience,
 }: DoctorCardProps) {
+  const t = useTranslations("doctors.card");
+
   return (
     <Card className="group overflow-hidden border-slate-100 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
       <div className="relative aspect-[4/5] overflow-hidden">
@@ -38,8 +43,8 @@ export default function DoctorCard({
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
           <Button asChild className="w-full rounded-xl shadow-xl">
-            <Link href={`/doctors/${id}`}>
-              View Profile
+            <Link href={`/doctors/${id}` as any}>
+              {t("viewProfile")}
             </Link>
           </Button>
         </div>
@@ -59,16 +64,16 @@ export default function DoctorCard({
         <div className="flex items-center text-slate-500 text-sm mb-6 space-x-4">
           <div className="flex items-center">
             <Stethoscope size={14} className="mr-1.5 text-primary" />
-            <span>{experience} Yrs Experience</span>
+            <span>{experience} {t("experience")}</span>
           </div>
           <div className="flex items-center">
-            <span className="text-slate-400">({reviews} reviews)</span>
+            <span className="text-slate-400">({reviews} {t("reviews")})</span>
           </div>
         </div>
         <Button asChild variant="outline" className="w-full rounded-xl border-slate-200 group-hover:border-primary group-hover:text-primary transition-all">
           <Link href="/booking" className="flex items-center">
             <Calendar size={18} className="mr-2" />
-            Book Now
+            {t("bookNow")}
           </Link>
         </Button>
       </CardContent>

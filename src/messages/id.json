@@ -1,0 +1,106 @@
+{
+  "navbar": {
+    "home": "Beranda",
+    "doctors": "Dokter",
+    "services": "Layanan",
+    "about": "Tentang",
+    "bookAppointment": "Buat Janji",
+    "emergencyCall": "Panggilan Darurat"
+  },
+  "hero": {
+    "badge": "Era Baru Perawatan Gigi",
+    "title": "Sempurnakan",
+    "titleItalic": "Seni Tersenyum.",
+    "description": "Temukan harmoni antara teknologi modern dan kenyamanan personal. Kami tidak hanya merawat gigi, kami mendesain rasa percaya diri Anda.",
+    "cta": "Reservasi Kunjungan",
+    "watchTour": "Tur Virtual",
+    "specialists": "Spesialis Ahli",
+    "satisfaction": "Kepuasan Pasien"
+  },
+  "services": {
+    "subtitle": "Layanan Ahli Kami",
+    "title": "Perawatan Komprehensif untuk Senyum Anda",
+    "description": "Kami menawarkan berbagai layanan gigi untuk membantu Anda mencapai dan menjaga kesehatan mulut yang optimal.",
+    "items": {
+      "general": {
+        "title": "Kedokteran Gigi Umum",
+        "description": "Pemeriksaan kesehatan mulut komprehensif, pembersihan, dan perawatan pencegahan untuk segala usia."
+      },
+      "cosmetic": {
+        "title": "Kedokteran Gigi Estetik",
+        "description": "Tingkatkan senyum Anda dengan pemutihan gigi, veneer, dan restorasi estetika."
+      },
+      "orthodontics": {
+        "title": "Ortodonti",
+        "description": "Rapikan gigi Anda dan perbaiki masalah gigitan dengan kawat gigi modern atau clear aligners."
+      },
+      "pediatric": {
+        "title": "Perawatan Anak",
+        "description": "Perawatan gigi khusus untuk anak-anak dalam lingkungan yang ramah dan lembut."
+      },
+      "emergency": {
+        "title": "Perawatan Darurat",
+        "description": "Bantuan segera untuk trauma gigi, nyeri hebat, atau gigi patah."
+      },
+      "implants": {
+        "title": "Implan Gigi",
+        "description": "Solusi permanen dan tampak alami untuk gigi yang hilang menggunakan teknologi terbaru."
+      }
+    }
+  },
+  "doctors": {
+    "subtitle": "Spesialis Kami",
+    "title": "Temui Tim Ahli Gigi Kami",
+    "description": "Dokter kami adalah profesional berkualifikasi tinggi yang berkomitmen untuk memberikan perawatan gigi terbaik bagi Anda dan keluarga.",
+    "viewAll": "Lihat Semua Dokter",
+    "card": {
+      "experience": "Thn Pengalaman",
+      "reviews": "ulasan",
+      "bookNow": "Pesan Sekarang",
+      "viewProfile": "Lihat Profil"
+    }
+  },
+  "whyChooseUs": {
+    "subtitle": "Mengapa Memilih Kami",
+    "title": "Pengalaman Perawatan Gigi yang Berbeda",
+    "description": "Kami menggabungkan keunggulan medis dengan pengalaman hospitalitas premium untuk membuat kunjungan gigi Anda menyenangkan.",
+    "yearsExp": "Tahun Pengalaman",
+    "features": {
+      "doctors": {
+        "title": "Dokter Ahli",
+        "description": "Tim kami terdiri dari spesialis gigi yang sangat berkualitas dan berpengalaman."
+      },
+      "tech": {
+        "title": "Teknologi Canggih",
+        "description": "Kami menggunakan peralatan gigi terbaru dan pencitraan digital untuk diagnosis yang presisi."
+      },
+      "patient": {
+        "title": "Pendekatan Pasien",
+        "description": "Kenyamanan dan kepuasan Anda adalah prioritas utama kami di setiap kunjungan."
+      },
+      "scheduling": {
+        "title": "Jadwal Fleksibel",
+        "description": "Waktu janji temu yang fleksibel termasuk malam hari dan akhir pekan untuk kenyamanan Anda."
+      }
+    }
+  },
+  "cta": {
+    "title": "Siap Memulai Perjalanan Menuju",
+    "titleHighlight": "Senyum Sempurna?",
+    "description": "Buat janji temu Anda hari ini dan rasakan perbedaan SOZO Dental. Pasien baru mendapatkan konsultasi awal gratis!",
+    "button": "Buat Janji Sekarang",
+    "orCall": "Atau Hubungi Kami"
+  },
+  "footer": {
+    "description": "Memberikan layanan gigi kelas dunia dengan pendekatan yang mengutamakan pasien. Kesehatan dan senyum indah Anda adalah prioritas utama kami.",
+    "quickLinks": "Tautan Cepat",
+    "contactUs": "Hubungi Kami",
+    "openingHours": "Jam Operasional",
+    "emergency": "Panggilan darurat diterima 24/7",
+    "rights": "Hak cipta dilindungi undang-undang.",
+    "monFri": "Sen - Jum",
+    "sat": "Sabtu",
+    "sun": "Minggu",
+    "closed": "Tutup"
+  }
+}

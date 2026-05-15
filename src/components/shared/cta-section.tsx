@@ -1,8 +1,13 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone } from "lucide-react";
 
 export default function CTASection() {
+  const t = useTranslations("cta");
+
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-primary" />
@@ -15,24 +20,23 @@ export default function CTASection() {
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight">
-            Ready to Start Your Journey to a <br className="hidden md:block" />
-            <span className="text-sky-200">Perfect Smile?</span>
+            {t("title")} <br className="hidden md:block" />
+            <span className="text-sky-200">{t("titleHighlight")}</span>
           </h2>
           
           <p className="text-xl text-sky-100 max-w-2xl mx-auto">
-            Book your appointment today and experience the SOZO Dental difference. 
-            New patients get a free initial consultation!
+            {t("description")}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Button asChild size="lg" className="h-16 px-10 rounded-full bg-white text-primary hover:bg-sky-50 text-lg font-bold shadow-2xl transition-all hover:scale-105">
               <Link href="/booking" className="flex items-center">
                 <Calendar className="mr-2 h-5 w-5" />
-                Book Appointment Now
+                {t("button")}
               </Link>
             </Button>
             
-            <Link 
+            <a 
               href="tel:+622112345678" 
               className="flex items-center space-x-3 text-white hover:text-sky-200 transition-colors p-4 group"
             >
@@ -40,10 +44,10 @@ export default function CTASection() {
                 <Phone className="h-6 w-6" />
               </div>
               <div className="text-left">
-                <p className="text-xs font-medium uppercase tracking-wider text-sky-200">Or Call Us</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-sky-200">{t("orCall")}</p>
                 <p className="text-lg font-bold">+62 21 1234 5678</p>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

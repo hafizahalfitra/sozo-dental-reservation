@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import SectionTitle from "./section-title";
 import { 
   Award, 
@@ -6,30 +9,32 @@ import {
   Users 
 } from "lucide-react";
 
-const features = [
-  {
-    title: "Expert Doctors",
-    description: "Our team consists of highly qualified and experienced dental specialists.",
-    icon: <Users className="h-6 w-6" />,
-  },
-  {
-    title: "Advanced Technology",
-    description: "We use the latest dental equipment and digital imaging for precise diagnosis.",
-    icon: <Award className="h-6 w-6" />,
-  },
-  {
-    title: "Patient-First Approach",
-    description: "Your comfort and satisfaction are our top priorities at every visit.",
-    icon: <HeartHandshake className="h-6 w-6" />,
-  },
-  {
-    title: "Convenient Scheduling",
-    description: "Flexible appointment times including evenings and weekends for your convenience.",
-    icon: <Clock className="h-6 w-6" />,
-  },
-];
-
 export default function WhyChooseUs() {
+  const t = useTranslations("whyChooseUs");
+
+  const features = [
+    {
+      title: t("features.doctors.title"),
+      description: t("features.doctors.description"),
+      icon: <Users className="h-6 w-6" />,
+    },
+    {
+      title: t("features.tech.title"),
+      description: t("features.tech.description"),
+      icon: <Award className="h-6 w-6" />,
+    },
+    {
+      title: t("features.patient.title"),
+      description: t("features.patient.description"),
+      icon: <HeartHandshake className="h-6 w-6" />,
+    },
+    {
+      title: t("features.scheduling.title"),
+      description: t("features.scheduling.description"),
+      icon: <Clock className="h-6 w-6" />,
+    },
+  ];
+
   return (
     <section className="py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +51,9 @@ export default function WhyChooseUs() {
                 <div className="flex items-center space-x-4">
                   <div className="text-4xl font-bold text-primary">15+</div>
                   <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">
-                    Years of<br />Experience
+                    {t("yearsExp").split(' ').join('<br />')}
+                    {/* Simplified for now, in a real case we might use multiple keys or dangerouslySetInnerHTML if we want <br /> */}
+                    {t("yearsExp")}
                   </div>
                 </div>
               </div>
@@ -56,9 +63,9 @@ export default function WhyChooseUs() {
           <div className="flex-1 space-y-8">
             <SectionTitle
               align="left"
-              subtitle="Why Choose Us"
-              title="Experience Dental Care Reimagined"
-              description="We combine medical excellence with a premium hospitality experience to make your dental visits something to look forward to."
+              subtitle={t("subtitle")}
+              title={t("title")}
+              description={t("description")}
               className="mb-8"
             />
 

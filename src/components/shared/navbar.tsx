@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,18 +20,20 @@ import {
   SheetTitle,
   SheetHeader 
 } from "@/components/ui/sheet";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Doctors", href: "/doctors" },
-  { name: "Services", href: "/services" }, // Tambahan umum
-  { name: "About", href: "/about" },
-];
+import LanguageSwitcher from "./language-switcher";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("navbar");
+
+  const navLinks = [
+    { name: t("home"), href: "/" },
+    { name: t("doctors"), href: "/doctors" },
+    { name: t("services"), href: "/services" },
+    { name: t("about"), href: "/about" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -75,7 +77,7 @@ export default function Navbar() {
             return (
               <Link
                 key={link.name}
-                href={link.href}
+                href={link.href as any}
                 className={cn(
                   "relative px-4 py-2 text-sm font-semibold transition-colors rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50",
                   isActive ? "text-primary" : "text-slate-600 dark:text-slate-400"
@@ -97,11 +99,15 @@ export default function Navbar() {
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex flex-col items-end mr-2">
-            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Emergency Call</span>
+            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">{t("emergencyCall")}</span>
             <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
               <Phone size={14} fill="currentColor" />
               <span>+62 21 1234 5678</span>
             </div>
+          </div>
+
+          <div className="hidden md:block">
+            <LanguageSwitcher />
           </div>
 
           <Button 
@@ -109,13 +115,14 @@ export default function Navbar() {
             className="group hidden md:flex rounded-full px-6 bg-primary hover:bg-primary/90 shadow-[0_10px_20px_-10px_rgba(var(--primary),0.3)] transition-all hover:translate-y-[-2px] active:translate-y-0"
           >
             <Link href="/booking">
-              Book Appointment
+              {t("bookAppointment")}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary">
@@ -141,7 +148,7 @@ export default function Navbar() {
                         key={link.name}
                     >
                         <Link
-                        href={link.href}
+                        href={link.href as any}
                         onClick={() => setIsOpen(false)}
                         className={cn(
                             "flex items-center justify-between p-4 rounded-2xl text-lg font-semibold transition-all",
@@ -159,10 +166,10 @@ export default function Navbar() {
 
                 <div className="p-6 mt-auto border-t bg-slate-50/50">
                   <Button asChild className="w-full h-14 rounded-2xl text-lg shadow-xl shadow-primary/20">
-                    <Link href="/booking" onClick={() => setIsOpen(false)}>Book Now</Link>
+                    <Link href="/booking" onClick={() => setIsOpen(false)}>{t("bookAppointment")}</Link>
                   </Button>
                   <p className="mt-4 text-center text-sm text-slate-500 font-medium flex items-center justify-center gap-2">
-                    <Phone size={14} /> Emergency: +62 21 1234 5678
+                    <Phone size={14} /> {t("emergencyCall")}: +62 21 1234 5678
                   </p>
                 </div>
               </SheetContent>

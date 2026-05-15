@@ -10,6 +10,8 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
+import { AuthProvider } from "@/components/providers/auth-provider";
+
 export default async function LocaleLayout({
   children,
   params
@@ -31,9 +33,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${poppins.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <AuthProvider>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -11,7 +11,11 @@ import {
   Stethoscope, 
   ArrowRight,
   Menu,
-  Sparkles
+  Sparkles,
+  User,
+  LogOut,
+  LayoutDashboard,
+  Calendar
 } from "lucide-react";
 import { 
   Sheet, 
@@ -20,20 +24,38 @@ import {
   SheetTitle,
   SheetHeader 
 } from "@/components/ui/sheet";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
 import LanguageSwitcher from "./language-switcher";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("navbar");
+  const { data: session } = useSession();
 
-  const navLinks = [
+  // Conditional Nav Links
+  const publicLinks = [
     { name: t("home"), href: "/" },
-    { name: t("doctors"), href: "/doctors" },
     { name: t("services"), href: "/services" },
-    { name: t("about"), href: "/about" },
+    { name: t("doctors"), href: "/doctors" },
   ];
+
+  const authLinks = [
+    ...publicLinks,
+    { name: t("booking"), href: "/booking" },
+    { name: t("dashboard"), href: session?.user?.role === 'ADMIN' ? '/dashboard/admin' : '/dashboard/patient' },
+  ];
+
+  const navLinks = session ? authLinks : publicLinks;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -110,15 +132,55 @@ export default function Navbar() {
             <LanguageSwitcher />
           </div>
 
-          <Button 
-            asChild 
-            className="group hidden md:flex rounded-full px-6 bg-primary hover:bg-primary/90 shadow-[0_10px_20px_-10px_rgba(var(--primary),0.3)] transition-all hover:translate-y-[-2px] active:translate-y-0"
-          >
-            <Link href="/booking">
-              {t("bookAppointment")}
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
+          {session ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="rounded-full border-primary/20 hover:bg-primary/5">
+                  <User className="mr-2 h-4 w-4 text-primary" />
+                  <span className="max-w-[100px] truncate">{session.user.name}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 rounded-xl border-slate-200">
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{session.user.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild className="cursor-pointer rounded-lg m-1">
+                  <Link href={session.user.role === 'ADMIN' ? '/dashboard/admin' : '/dashboard/patient'}>
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
+                    {t("dashboard")}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer rounded-lg m-1">
+                  <Link href="/booking">
+                    <Calendar className="mr-2 h-4 w-4" />
+                    {t("booking")}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  className="cursor-pointer rounded-lg m-1 text-red-600 focus:bg-red-50 focus:text-red-600"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  {t("logout")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button 
+              asChild 
+              className="group hidden md:flex rounded-full px-6 bg-primary hover:bg-primary/90 shadow-[0_10px_20px_-10px_rgba(var(--primary),0.3)] transition-all hover:translate-y-[-2px] active:translate-y-0"
+            >
+              <Link href="/login">
+                {t("login")}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          )}
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-2">
@@ -165,9 +227,16 @@ export default function Navbar() {
                 </div>
 
                 <div className="p-6 mt-auto border-t bg-slate-50/50">
-                  <Button asChild className="w-full h-14 rounded-2xl text-lg shadow-xl shadow-primary/20">
-                    <Link href="/booking" onClick={() => setIsOpen(false)}>{t("bookAppointment")}</Link>
-                  </Button>
+                  {session ? (
+                    <Button variant="destructive" className="w-full h-14 rounded-2xl text-lg" onClick={() => signOut({ callbackUrl: "/" })}>
+                      <LogOut className="mr-2 h-5 w-5" />
+                      {t("logout")}
+                    </Button>
+                  ) : (
+                    <Button asChild className="w-full h-14 rounded-2xl text-lg shadow-xl shadow-primary/20">
+                      <Link href="/login" onClick={() => setIsOpen(false)}>{t("login")}</Link>
+                    </Button>
+                  )}
                   <p className="mt-4 text-center text-sm text-slate-500 font-medium flex items-center justify-center gap-2">
                     <Phone size={14} /> {t("emergencyCall")}: +62 21 1234 5678
                   </p>

@@ -7,47 +7,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Doctor {
-  id         String      @id @default(cuid())
-  name       String
-  specialty  String
-  photo      String?
-  bookings   Booking[]
-  schedules  Schedule[]
-  createdAt  DateTime    @default(now())
+enum Role {
+  PATIENT
+  ADMIN
+  DOCTOR
 }
 
-model Schedule {
-  id         String    @id @default(cuid())
-  day        String
-  startTime  String
-  endTime    String
-
-  doctorId   String
-  doctor     Doctor @relation(fields: [doctorId], references: [id])
-
-  createdAt  DateTime @default(now())
-}
-
-model Booking {
-  id             String         @id @default(cuid())
-  patientName    String
-  patientPhone   String
-  complaint      String?
-
-  bookingDate    DateTime
-  bookingTime    String
-
-  status         BookingStatus @default(PENDING)
-
-  doctorId       String
-  doctor         Doctor @relation(fields: [doctorId], references: [id])
-
-  createdAt      DateTime @default(now())
-}
-
-enum BookingStatus {
+enum AppointmentStatus {
   PENDING
   CONFIRMED
   CANCELLED
+  COMPLETED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role          @default(PATIENT)
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+}
+
+model Doctor {
+  id             String   @id @default(cuid())
+  name           String
+  specialization String
+  image          String?
+  experience     Int
+  available      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  appointments   Appointment[]
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  duration     Int           // minutes
+  price        Int           // in IDR (cents-free)
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+}
+
+model Appointment {
+  id              String            @id @default(cuid())
+  patientId       String
+  patient         User              @relation(fields: [patientId], references: [id])
+  doctorId        String
+  doctor          Doctor            @relation(fields: [doctorId], references: [id])
+  serviceId       String
+  service         Service           @relation(fields: [serviceId], references: [id])
+  appointmentDate DateTime
+  appointmentTime String
+  notes           String?
+  status          AppointmentStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
 }

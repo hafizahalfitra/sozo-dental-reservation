@@ -5,7 +5,11 @@
     "services": "Layanan",
     "about": "Tentang",
     "bookAppointment": "Buat Janji",
-    "emergencyCall": "Panggilan Darurat"
+    "emergencyCall": "Panggilan Darurat",
+    "dashboard": "Dashboard",
+    "login": "Masuk",
+    "logout": "Keluar",
+    "booking": "Pemesanan"
   },
   "hero": {
     "badge": "Era Baru Perawatan Gigi",
@@ -102,5 +106,61 @@
     "sat": "Sabtu",
     "sun": "Minggu",
     "closed": "Tutup"
+  },
+  "auth": {
+    "login": {
+      "title": "Selamat Datang Kembali",
+      "subtitle": "Masuk ke akun Anda untuk mengelola janji temu",
+      "email": "Alamat Email",
+      "password": "Kata Sandi",
+      "button": "Masuk",
+      "noAccount": "Belum punya akun?",
+      "register": "Daftar sekarang"
+    },
+    "register": {
+      "title": "Buat Akun",
+      "subtitle": "Daftar untuk mulai memesan perawatan gigi Anda",
+      "name": "Nama Lengkap",
+      "email": "Alamat Email",
+      "password": "Kata Sandi",
+      "confirmPassword": "Konfirmasi Kata Sandi",
+      "button": "Daftar",
+      "hasAccount": "Sudah punya akun?",
+      "login": "Masuk sekarang"
+    }
+  },
+  "booking": {
+    "title": "Buat Janji Temu",
+    "subtitle": "Langkah Menuju Senyum Sehat",
+    "description": "Isi formulir di bawah ini untuk memesan kunjungan Anda berikutnya.",
+    "doctor": "Pilih Dokter",
+    "service": "Pilih Layanan",
+    "date": "Pilih Tanggal",
+    "time": "Pilih Waktu",
+    "notes": "Catatan Tambahan (Opsional)",
+    "submit": "Konfirmasi Pemesanan",
+    "success": "Janji Temu Berhasil Dibuat!",
+    "error": "Gagal membuat janji temu. Silakan coba lagi."
+  },
+  "dashboard": {
+    "patient": {
+      "title": "Dashboard Pasien",
+      "welcome": "Selamat datang kembali",
+      "upcoming": "Janji Temu Mendatang",
+      "history": "Riwayat Janji Temu",
+      "noAppointments": "Belum ada janji temu.",
+      "cancel": "Batalkan",
+      "status": "Status"
+    },
+    "admin": {
+      "title": "Panel Admin",
+      "stats": {
+        "totalAppointments": "Total Janji Temu",
+        "totalDoctors": "Total Dokter",
+        "totalPatients": "Total Pasien"
+      },
+      "recent": "Pemesanan Terbaru",
+      "manage": "Kelola"
+    }
   }
 }

@@ -5,7 +5,11 @@
     "services": "Services",
     "about": "About",
     "bookAppointment": "Book Appointment",
-    "emergencyCall": "Emergency Call"
+    "emergencyCall": "Emergency Call",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "booking": "Booking"
   },
   "hero": {
     "badge": "Next-Gen Dental Experience",
@@ -102,5 +106,61 @@
     "sat": "Saturday",
     "sun": "Sunday",
     "closed": "Closed"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to manage appointments",
+      "email": "Email Address",
+      "password": "Password",
+      "button": "Sign In",
+      "noAccount": "Don't have an account?",
+      "register": "Register now"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Sign up to start booking your dental care",
+      "name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "button": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login now"
+    }
+  },
+  "booking": {
+    "title": "Book an Appointment",
+    "subtitle": "A Step Towards a Healthy Smile",
+    "description": "Fill out the form below to book your next visit.",
+    "doctor": "Select Doctor",
+    "service": "Select Service",
+    "date": "Select Date",
+    "time": "Select Time",
+    "notes": "Additional Notes (Optional)",
+    "submit": "Confirm Booking",
+    "success": "Appointment Booked Successfully!",
+    "error": "Failed to book appointment. Please try again."
+  },
+  "dashboard": {
+    "patient": {
+      "title": "Patient Dashboard",
+      "welcome": "Welcome back",
+      "upcoming": "Upcoming Appointments",
+      "history": "Appointment History",
+      "noAppointments": "No appointments yet.",
+      "cancel": "Cancel",
+      "status": "Status"
+    },
+    "admin": {
+      "title": "Admin Panel",
+      "stats": {
+        "totalAppointments": "Total Appointments",
+        "totalDoctors": "Total Doctors",
+        "totalPatients": "Total Patients"
+      },
+      "recent": "Recent Bookings",
+      "manage": "Manage"
+    }
   }
 }

@@ -34,7 +34,9 @@ export interface BookingType {
   userId: string;
   doctorId: string;
   serviceId: string;
-  appointmentDate: Date;
+  name: string;
+  phone: string;
+  appointmentDate: string | Date;
   appointmentTime: string;
   notes: string | null;
   status: BookingStatus;

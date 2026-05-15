@@ -32,14 +32,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${poppins.variable} h-full antialiased`}>
-      <body className={`${poppins.className} min-h-full flex flex-col antialiased`}>
-        <AuthProvider>
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </AuthProvider>
-      </body>
-    </html>
+    <div className={`${poppins.variable} ${poppins.className} h-full min-h-full flex flex-col antialiased`}>
+      <AuthProvider>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </AuthProvider>
+    </div>
   );
 }

@@ -172,11 +172,11 @@
         "empty": "No booking history yet."
       },
       "status": {
-        "pending": "Pending",
-        "confirmed": "Confirmed",
-        "completed": "Completed",
-        "cancelled": "Cancelled"
-      }
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "completed": "Completed"
+    }
     }
   }
 }

@@ -20,13 +20,13 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "@/i18n/routing";
-import type { AppointmentType } from "@/types";
+import type { BookingType } from "@/types";
 
 export default function PatientDashboard() {
   const t = useTranslations("dashboard.patient");
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [appointments, setAppointments] = useState<AppointmentType[]>([]);
+  const [appointments, setAppointments] = useState<BookingType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -58,13 +58,13 @@ export default function PatientDashboard() {
       const response = await fetch(`/api/appointments/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "CANCELLED" }),
+        body: JSON.stringify({ status: "REJECTED" }),
       });
       const data = await response.json();
       if (data.success) {
         toast.success("Appointment cancelled");
         setAppointments(appointments.map(app => 
-          app.id === id ? { ...app, status: "CANCELLED" as any } : app
+          app.id === id ? { ...app, status: "REJECTED" as any } : app
         ));
       }
     } catch (error) {
@@ -76,10 +76,10 @@ export default function PatientDashboard() {
     switch (status) {
       case "PENDING":
         return <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100 border-none"><Clock3 className="w-3 h-3 mr-1" /> Pending</Badge>;
-      case "CONFIRMED":
-        return <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100 border-none"><CheckCircle2 className="w-3 h-3 mr-1" /> Confirmed</Badge>;
-      case "CANCELLED":
-        return <Badge variant="secondary" className="bg-red-100 text-red-700 hover:bg-red-100 border-none"><XCircle className="w-3 h-3 mr-1" /> Cancelled</Badge>;
+      case "APPROVED":
+        return <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100 border-none"><CheckCircle2 className="w-3 h-3 mr-1" /> Approved</Badge>;
+      case "REJECTED":
+        return <Badge variant="secondary" className="bg-red-100 text-red-700 hover:bg-red-100 border-none"><XCircle className="w-3 h-3 mr-1" /> Rejected</Badge>;
       case "COMPLETED":
         return <Badge variant="secondary" className="bg-blue-100 text-blue-700 hover:bg-blue-100 border-none"><CheckCircle2 className="w-3 h-3 mr-1" /> Completed</Badge>;
       default:
@@ -95,8 +95,8 @@ export default function PatientDashboard() {
     );
   }
 
-  const upcoming = appointments.filter(a => a.status === "PENDING" || a.status === "CONFIRMED");
-  const history = appointments.filter(a => a.status === "COMPLETED" || a.status === "CANCELLED");
+  const upcoming = appointments.filter(a => a.status === "PENDING" || a.status === "APPROVED");
+  const history = appointments.filter(a => a.status === "COMPLETED" || a.status === "REJECTED");
 
   return (
     <div className="container mx-auto py-10 px-4 mt-16">
@@ -162,7 +162,7 @@ export default function PatientDashboard() {
                     </div>
 
                     <div className="pt-2">
-                      {app.status !== "CANCELLED" && (
+                      {app.status !== "REJECTED" && (
                         <Button 
                           variant="outline" 
                           size="sm" 

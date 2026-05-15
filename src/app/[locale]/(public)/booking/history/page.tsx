@@ -57,10 +57,10 @@ export default function ReservationHistory() {
     switch (status) {
       case "PENDING":
         return <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 border-none"><Clock3 className="w-3 h-3 mr-1" /> {t("status.pending")}</Badge>;
-      case "CONFIRMED":
-        return <Badge variant="secondary" className="bg-green-100 text-green-700 border-none"><CheckCircle2 className="w-3 h-3 mr-1" /> {t("status.confirmed")}</Badge>;
-      case "CANCELLED":
-        return <Badge variant="secondary" className="bg-red-100 text-red-700 border-none"><XCircle className="w-3 h-3 mr-1" /> {t("status.cancelled")}</Badge>;
+      case "APPROVED":
+        return <Badge variant="secondary" className="bg-green-100 text-green-700 border-none"><CheckCircle2 className="w-3 h-3 mr-1" /> {t("status.approved")}</Badge>;
+      case "REJECTED":
+        return <Badge variant="secondary" className="bg-red-100 text-red-700 border-none"><XCircle className="w-3 h-3 mr-1" /> {t("status.rejected")}</Badge>;
       case "COMPLETED":
         return <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-none"><CheckCircle2 className="w-3 h-3 mr-1" /> {t("status.completed")}</Badge>;
       default:
@@ -147,8 +147,8 @@ export default function ReservationHistory() {
                     <div className="space-y-4">
                       <div>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nama Pasien</p>
-                        <p className="font-semibold text-slate-700">{booking.patientName || session?.user?.name}</p>
-                        <p className="text-xs text-slate-400">{booking.patientPhone}</p>
+                        <p className="font-semibold text-slate-700">{booking.name || session?.user?.name}</p>
+                        <p className="text-xs text-slate-400">{booking.phone}</p>
                       </div>
                       
                       {booking.notes && (

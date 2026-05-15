@@ -44,6 +44,7 @@ export default function Navbar() {
     ...(isLoggedIn ? [
       { name: "Booking Sekarang", href: "/booking" },
       { name: "Riwayat Reservasi", href: "/booking/history" },
+      ...(session?.user?.role === "ADMIN" ? [{ name: "Admin", href: "/admin" }] : []),
     ] : []),
   ];
 

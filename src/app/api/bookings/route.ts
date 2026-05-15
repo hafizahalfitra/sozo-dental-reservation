@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { appointmentSchema } from "@/lib/validations";
+import { bookingSchema } from "@/lib/validations";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const parsed = appointmentSchema.safeParse(body);
+    const parsed = bookingSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -23,9 +23,11 @@ export async function POST(req: NextRequest) {
 
     const { doctorId, serviceId, appointmentDate, appointmentTime, notes } = parsed.data;
 
-    const booking = await prisma.booking.create({
+    const booking = await prisma.appointment.create({
       data: {
         userId: session.user.id,
+        name: parsed.data.patientName || "Unknown",
+        phone: parsed.data.patientPhone || "Unknown",
         doctorId,
         serviceId,
         appointmentDate: new Date(appointmentDate),

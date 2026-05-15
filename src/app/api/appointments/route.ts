@@ -19,21 +19,21 @@ export async function GET(req: NextRequest) {
         ? {}
         : { userId: session.user.id };
 
-    const bookings = await prisma.booking.findMany({
+    const appointments = await prisma.appointment.findMany({
       where: userId && session.user.role === "ADMIN" ? { userId } : where,
       include: {
-        doctor: { select: { id: true, name: true, specialization: true, image: true } },
-        service: { select: { id: true, title: true, duration: true, price: true } },
+        doctor: { select: { id: true, name: true, specialization: true } },
+        service: { select: { id: true, title: true, price: true } },
         user: { select: { id: true, name: true, email: true } },
       },
-      orderBy: { appointmentDate: "desc" },
+      orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json({ success: true, data: bookings });
-  } catch (error) {
-    console.error("[BOOKINGS_GET]", error);
+    return NextResponse.json({ success: true, data: appointments });
+  } catch (error: any) {
+    console.error("APPOINTMENTS_GET_ERROR:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch bookings" },
+      { success: false, message: error.message || "Failed to fetch appointments" },
       { status: 500 }
     );
   }
@@ -49,13 +49,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     console.log("APPOINTMENT PAYLOAD:", body);
 
-    if (!body) {
-      return NextResponse.json({ success: false, error: "Empty request body" }, { status: 400 });
-    }
-
     const parsed = bookingSchema.safeParse(body);
     if (!parsed.success) {
-      console.error("VALIDATION ERROR:", parsed.error.issues);
       return NextResponse.json(
         { success: false, error: parsed.error.issues[0].message },
         { status: 400 }
@@ -64,11 +59,11 @@ export async function POST(req: NextRequest) {
 
     const { patientName, patientPhone, doctorId, serviceId, appointmentDate, appointmentTime, notes } = parsed.data;
 
-    const booking = await prisma.booking.create({
+    const appointment = await prisma.appointment.create({
       data: {
         userId: session.user.id,
-        patientName,
-        patientPhone,
+        name: patientName, // Mapped from form patientName to schema name
+        phone: patientPhone, // Mapped from form patientPhone to schema phone
         doctorId,
         serviceId,
         appointmentDate: new Date(appointmentDate),
@@ -77,25 +72,19 @@ export async function POST(req: NextRequest) {
         status: "PENDING",
       },
       include: {
-        doctor: { select: { name: true, specialization: true } },
-        service: { select: { title: true, price: true } },
+        doctor: { select: { name: true } },
+        service: { select: { title: true } },
       },
     });
 
-    console.log("BOOKING CREATED:", booking.id);
-
     return NextResponse.json(
-      { success: true, data: booking, message: "Booking created successfully" },
+      { success: true, data: appointment, message: "Appointment created successfully" },
       { status: 201 }
     );
   } catch (error: any) {
-    console.error("APPOINTMENT API ERROR:", error);
+    console.error("APPOINTMENT_POST_ERROR:", error);
     return NextResponse.json(
-      { 
-        success: false, 
-        error: error?.message || "Internal Server Error",
-        details: error instanceof Error ? error.stack : undefined 
-      },
+      { success: false, message: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

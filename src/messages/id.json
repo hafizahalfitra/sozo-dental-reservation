@@ -176,9 +176,9 @@
     },
     "status": {
       "pending": "Menunggu",
-      "confirmed": "Dikonfirmasi",
-      "completed": "Selesai",
-      "cancelled": "Dibatalkan"
+      "approved": "Disetujui",
+      "rejected": "Ditolak",
+      "completed": "Selesai"
     }
   }
 }

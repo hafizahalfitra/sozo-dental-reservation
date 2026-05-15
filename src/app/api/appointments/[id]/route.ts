@@ -8,38 +8,59 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
     const session = await getServerSession(authOptions);
-    if (!session?.user) {
+    if (!session?.user || session.user.role !== "ADMIN") {
       return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     const body = await req.json();
     const { status } = body;
 
-    const booking = await prisma.booking.findUnique({
-      where: { id },
-    });
-
-    if (!booking) {
-      return NextResponse.json({ success: false, error: "Booking not found" }, { status: 404 });
+    if (!status) {
+      return NextResponse.json({ success: false, error: "Status is required" }, { status: 400 });
     }
 
-    // Only owner (patient) or admin can update
-    if (session.user.role !== "ADMIN" && booking.userId !== session.user.id) {
-      return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
-    }
-
-    const updated = await prisma.booking.update({
+    const updated = await prisma.appointment.update({
       where: { id },
       data: { status },
+      include: {
+        doctor: { select: { name: true } },
+        service: { select: { title: true } },
+        user: { select: { name: true, email: true } },
+      }
     });
 
     return NextResponse.json({ success: true, data: updated });
-  } catch (error) {
-    console.error("[BOOKING_PATCH]", error);
+  } catch (error: any) {
+    console.error("APPOINTMENT_PATCH_ERROR:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to update booking" },
+      { success: false, message: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user || session.user.role !== "ADMIN") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    await prisma.appointment.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, message: "Appointment deleted successfully" });
+  } catch (error: any) {
+    console.error("APPOINTMENT_DELETE_ERROR:", error);
+    return NextResponse.json(
+      { success: false, message: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

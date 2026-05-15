@@ -10,11 +10,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
 
-    const bookings = await prisma.booking.findMany({
+    const bookings = await prisma.appointment.findMany({
       where: {
         userId: session.user.id,
         status: {
-          in: ["PENDING", "CONFIRMED"],
+          in: ["PENDING", "APPROVED"],
         },
       },
       include: {

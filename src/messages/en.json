@@ -1,15 +1,10 @@
 {
   "navbar": {
     "home": "Home",
-    "doctors": "Doctors",
-    "services": "Services",
-    "about": "About",
-    "bookAppointment": "Book Appointment",
-    "emergencyCall": "Emergency Call",
-    "dashboard": "Dashboard",
-    "login": "Login",
+    "dokter": "Doctors",
+    "booking": "Book Now",
     "logout": "Logout",
-    "booking": "Booking"
+    "dashboard": "Dashboard"
   },
   "hero": {
     "badge": "Next-Gen Dental Experience",
@@ -129,19 +124,6 @@
       "login": "Login now"
     }
   },
-  "booking": {
-    "title": "Book an Appointment",
-    "subtitle": "A Step Towards a Healthy Smile",
-    "description": "Fill out the form below to book your next visit.",
-    "doctor": "Select Doctor",
-    "service": "Select Service",
-    "date": "Select Date",
-    "time": "Select Time",
-    "notes": "Additional Notes (Optional)",
-    "submit": "Confirm Booking",
-    "success": "Appointment Booked Successfully!",
-    "error": "Failed to book appointment. Please try again."
-  },
   "dashboard": {
     "patient": {
       "title": "Patient Dashboard",
@@ -161,6 +143,40 @@
       },
       "recent": "Recent Bookings",
       "manage": "Manage"
+    }
+  },
+  "booking": {
+    "dashboard": {
+      "title": "Booking System",
+      "subtitle": "Manage your dental appointments in one place.",
+      "tabs": {
+        "create": "Create Booking",
+        "active": "Active Booking",
+        "history": "Booking History"
+      },
+      "form": {
+        "doctor": "Select Doctor",
+        "service": "Select Service",
+        "date": "Date",
+        "time": "Time",
+        "notes": "Notes (Optional)",
+        "submit": "Confirm Booking",
+        "success": "Booking created successfully!",
+        "error": "Failed to create booking. Please try again."
+      },
+      "active": {
+        "empty": "You have no active bookings at the moment.",
+        "cancel": "Cancel"
+      },
+      "history": {
+        "empty": "No booking history yet."
+      },
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      }
     }
   }
 }

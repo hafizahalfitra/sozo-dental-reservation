@@ -1,16 +1,10 @@
 {
-  "navbar": {
-    "home": "Beranda",
-    "doctors": "Dokter",
-    "services": "Layanan",
-    "about": "Tentang",
-    "bookAppointment": "Buat Janji",
-    "emergencyCall": "Panggilan Darurat",
-    "dashboard": "Dashboard",
-    "login": "Masuk",
-    "logout": "Keluar",
-    "booking": "Pemesanan"
-  },
+   "navbar": {
+      "home": "Beranda",
+      "dokter": "Dokter",
+      "booking": "Reservasi Sekarang",
+      "logout": "Keluar"
+    },
   "hero": {
     "badge": "Era Baru Perawatan Gigi",
     "title": "Sempurnakan",
@@ -129,19 +123,6 @@
       "login": "Masuk sekarang"
     }
   },
-  "booking": {
-    "title": "Buat Janji Temu",
-    "subtitle": "Langkah Menuju Senyum Sehat",
-    "description": "Isi formulir di bawah ini untuk memesan kunjungan Anda berikutnya.",
-    "doctor": "Pilih Dokter",
-    "service": "Pilih Layanan",
-    "date": "Pilih Tanggal",
-    "time": "Pilih Waktu",
-    "notes": "Catatan Tambahan (Opsional)",
-    "submit": "Konfirmasi Pemesanan",
-    "success": "Janji Temu Berhasil Dibuat!",
-    "error": "Gagal membuat janji temu. Silakan coba lagi."
-  },
   "dashboard": {
     "patient": {
       "title": "Dashboard Pasien",
@@ -161,6 +142,43 @@
       },
       "recent": "Pemesanan Terbaru",
       "manage": "Kelola"
+    }
+  },
+  "booking": {
+    "title": "Sistem Booking Reservasi",
+    "subtitle": "Kelola janji temu gigi Anda di satu tempat dengan mudah.",
+    "submit": "Konfirmasi Booking Sekarang",
+    "dashboard": {
+      "tabs": {
+        "create": "Buat Booking",
+        "active": "Booking Aktif",
+        "history": "Riwayat Booking"
+      }
+    },
+    "form": {
+      "name": "Nama Lengkap",
+      "phone": "Nomor WhatsApp",
+      "doctor": "Pilih Dokter",
+      "service": "Jenis Layanan / Keluhan",
+      "date": "Tanggal Kunjungan",
+      "time": "Waktu Kunjungan",
+      "notes": "Catatan Tambahan (Opsional)",
+      "submit": "Konfirmasi Booking Sekarang",
+      "success": "Booking berhasil dibuat! Silakan cek riwayat.",
+      "error": "Gagal membuat booking. Silakan coba lagi."
+    },
+    "active": {
+      "empty": "Anda tidak memiliki booking aktif saat ini.",
+      "cancel": "Batalkan"
+    },
+    "history": {
+      "empty": "Belum ada riwayat booking."
+    },
+    "status": {
+      "pending": "Menunggu",
+      "confirmed": "Dikonfirmasi",
+      "completed": "Selesai",
+      "cancelled": "Dibatalkan"
     }
   }
 }

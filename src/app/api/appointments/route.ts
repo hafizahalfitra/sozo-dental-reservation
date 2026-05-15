@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { appointmentSchema } from "@/lib/validations";
+import { bookingSchema } from "@/lib/validations";
 
 export async function GET(req: NextRequest) {
   try {
@@ -12,28 +12,28 @@ export async function GET(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const patientId = searchParams.get("patientId");
+    const userId = searchParams.get("userId");
 
     const where =
       session.user.role === "ADMIN"
         ? {}
-        : { patientId: session.user.id };
+        : { userId: session.user.id };
 
-    const appointments = await prisma.appointment.findMany({
-      where: patientId && session.user.role === "ADMIN" ? { patientId } : where,
+    const bookings = await prisma.booking.findMany({
+      where: userId && session.user.role === "ADMIN" ? { userId } : where,
       include: {
         doctor: { select: { id: true, name: true, specialization: true, image: true } },
         service: { select: { id: true, title: true, duration: true, price: true } },
-        patient: { select: { id: true, name: true, email: true } },
+        user: { select: { id: true, name: true, email: true } },
       },
       orderBy: { appointmentDate: "desc" },
     });
 
-    return NextResponse.json({ success: true, data: appointments });
+    return NextResponse.json({ success: true, data: bookings });
   } catch (error) {
-    console.error("[APPOINTMENTS_GET]", error);
+    console.error("[BOOKINGS_GET]", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch appointments" },
+      { success: false, error: "Failed to fetch bookings" },
       { status: 500 }
     );
   }
@@ -47,20 +47,28 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const parsed = appointmentSchema.safeParse(body);
+    console.log("APPOINTMENT PAYLOAD:", body);
 
+    if (!body) {
+      return NextResponse.json({ success: false, error: "Empty request body" }, { status: 400 });
+    }
+
+    const parsed = bookingSchema.safeParse(body);
     if (!parsed.success) {
+      console.error("VALIDATION ERROR:", parsed.error.issues);
       return NextResponse.json(
         { success: false, error: parsed.error.issues[0].message },
         { status: 400 }
       );
     }
 
-    const { doctorId, serviceId, appointmentDate, appointmentTime, notes } = parsed.data;
+    const { patientName, patientPhone, doctorId, serviceId, appointmentDate, appointmentTime, notes } = parsed.data;
 
-    const appointment = await prisma.appointment.create({
+    const booking = await prisma.booking.create({
       data: {
-        patientId: session.user.id,
+        userId: session.user.id,
+        patientName,
+        patientPhone,
         doctorId,
         serviceId,
         appointmentDate: new Date(appointmentDate),
@@ -74,14 +82,20 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    console.log("BOOKING CREATED:", booking.id);
+
     return NextResponse.json(
-      { success: true, data: appointment, message: "Appointment booked successfully" },
+      { success: true, data: booking, message: "Booking created successfully" },
       { status: 201 }
     );
-  } catch (error) {
-    console.error("[APPOINTMENTS_POST]", error);
+  } catch (error: any) {
+    console.error("APPOINTMENT API ERROR:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to create appointment" },
+      { 
+        success: false, 
+        error: error?.message || "Internal Server Error",
+        details: error instanceof Error ? error.stack : undefined 
+      },
       { status: 500 }
     );
   }

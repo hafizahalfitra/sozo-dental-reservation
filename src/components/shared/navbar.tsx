@@ -3,244 +3,208 @@
 import { useState, useEffect } from "react";
 import { Link, usePathname } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { 
-  Phone, 
-  Stethoscope, 
-  ArrowRight,
-  Menu,
-  Sparkles,
-  User,
-  LogOut,
-  LayoutDashboard,
-  Calendar
-} from "lucide-react";
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetTrigger, 
-  SheetTitle,
-  SheetHeader 
-} from "@/components/ui/sheet";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import { Menu, Stethoscope, User, LogOut, ChevronDown } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+
 import LanguageSwitcher from "./language-switcher";
 import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("navbar");
   const { data: session } = useSession();
-
-  // Conditional Nav Links
-  const publicLinks = [
-    { name: t("home"), href: "/" },
-    { name: t("services"), href: "/services" },
-    { name: t("doctors"), href: "/doctors" },
-  ];
-
-  const authLinks = [
-    ...publicLinks,
-    { name: t("booking"), href: "/booking" },
-    { name: t("dashboard"), href: session?.user?.role === 'ADMIN' ? '/dashboard/admin' : '/dashboard/patient' },
-  ];
-
-  const navLinks = session ? authLinks : publicLinks;
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    setMounted(true);
   }, []);
 
+  const safeT = (key: string, fallback: string) => {
+    return t(key, { defaultValue: fallback });
+  };
+
+  const isLoggedIn = !!session;
+
+  const navLinks = [
+    { name: safeT("home", "Beranda"), href: "/" },
+    { name: safeT("dokter", "Dokter"), href: "/doctors" },
+    ...(isLoggedIn ? [
+      { name: "Booking Sekarang", href: "/booking" },
+      { name: "Riwayat Reservasi", href: "/booking/history" },
+    ] : []),
+  ];
+
+  if (!mounted) return null;
+
   return (
-    <header
-      className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-500 ease-in-out px-4 sm:px-8 py-4",
-        isScrolled ? "py-3" : "py-6"
-      )}
-    >
-      <nav
-        className={cn(
-          "mx-auto max-w-7xl rounded-2xl transition-all duration-500",
-          "flex h-16 items-center justify-between px-6",
-          isScrolled 
-            ? "bg-white/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/20 dark:bg-slate-950/70" 
-            : "bg-transparent"
-        )}
-      >
-        {/* Logo Section */}
-        <Link href="/" className="group flex items-center gap-3">
-          <div className="relative">
-            <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary to-blue-400 opacity-25 blur transition duration-300 group-hover:opacity-100" />
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-lg transition-transform group-hover:scale-110 group-active:scale-95">
-              <Stethoscope size={22} strokeWidth={2.5} />
-            </div>
+    <header className="fixed top-0 z-50 w-full border-b border-white/20 bg-white/70 backdrop-blur-md saturate-150 transition-all duration-300">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-2 group transition-transform hover:scale-105">
+          <div className="bg-blue-600 p-1.5 rounded-lg text-white shadow-lg shadow-blue-200">
+            <Stethoscope size={22} strokeWidth={2.5} />
           </div>
-          <span className="hidden text-xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:block">
-            SOZO<span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">Dental</span>
+          <span className="text-xl font-extrabold tracking-tight text-slate-900">
+            SOZO<span className="text-blue-600">Dental</span>
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* DESKTOP MENU */}
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const active = pathname === link.href;
             return (
               <Link
-                key={link.name}
+                key={link.href}
                 href={link.href as any}
                 className={cn(
-                  "relative px-4 py-2 text-sm font-semibold transition-colors rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50",
-                  isActive ? "text-primary" : "text-slate-600 dark:text-slate-400"
+                  "relative text-sm font-semibold transition-colors duration-200 py-1",
+                  active ? "text-blue-600" : "text-slate-600 hover:text-blue-500"
                 )}
               >
                 {link.name}
-                {isActive && (
+                {active && (
                   <motion.div
-                    layoutId="navbar-active"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary mx-4 rounded-full"
+                    layoutId="activeTab"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
               </Link>
             );
           })}
+          
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-4">
-          <div className="hidden lg:flex flex-col items-end mr-2">
-            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">{t("emergencyCall")}</span>
-            <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
-              <Phone size={14} fill="currentColor" />
-              <span>+62 21 1234 5678</span>
-            </div>
-          </div>
-
-          <div className="hidden md:block">
+        {/* RIGHT SIDE ACTIONS */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="hidden sm:block">
             <LanguageSwitcher />
           </div>
 
-          {session ? (
+          {isLoggedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="rounded-full border-primary/20 hover:bg-primary/5">
-                  <User className="mr-2 h-4 w-4 text-primary" />
-                  <span className="max-w-[100px] truncate">{session.user.name}</span>
+                <Button variant="ghost" className="relative h-10 w-auto flex gap-2 pl-1 pr-3 rounded-full hover:bg-slate-100 transition-all">
+                  <Avatar className="h-8 w-8 border border-blue-100">
+                    <AvatarImage src={session.user?.image || ""} alt={session.user?.name || "User"} />
+                    <AvatarFallback className="bg-blue-50 text-blue-600 text-xs font-bold">
+                      {session.user?.name?.substring(0, 2).toUpperCase() || "SZ"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="hidden lg:inline-block text-sm font-medium text-slate-700">
+                    {session.user?.name?.split(" ")[0]}
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-slate-400" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 rounded-xl border-slate-200">
-                <DropdownMenuLabel className="font-normal">
+
+              <DropdownMenuContent align="end" className="w-56 p-2 mt-2 shadow-xl border-slate-100">
+                <DropdownMenuLabel className="font-normal p-2">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{session.user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
+                    <p className="text-sm font-bold leading-none text-slate-900">{session.user?.name}</p>
+                    <p className="text-xs leading-none text-slate-500">{session.user?.email}</p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild className="cursor-pointer rounded-lg m-1">
-                  <Link href={session.user.role === 'ADMIN' ? '/dashboard/admin' : '/dashboard/patient'}>
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    {t("dashboard")}
-                  </Link>
+                <DropdownMenuItem asChild className="cursor-pointer rounded-md">
+                   <Link href="/dashboard/patient" className="flex w-full items-center">
+                      <User className="mr-2 h-4 w-4" /> Dashboard
+                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer rounded-lg m-1">
-                  <Link href="/booking">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    {t("booking")}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
                 <DropdownMenuItem 
-                  className="cursor-pointer rounded-lg m-1 text-red-600 focus:bg-red-50 focus:text-red-600"
                   onClick={() => signOut({ callbackUrl: "/" })}
+                  className="text-red-600 focus:bg-red-50 focus:text-red-600 cursor-pointer rounded-md mt-1"
                 >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  {t("logout")}
+                  <LogOut className="mr-2 h-4 w-4" /> Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button 
-              asChild 
-              className="group hidden md:flex rounded-full px-6 bg-primary hover:bg-primary/90 shadow-[0_10px_20px_-10px_rgba(var(--primary),0.3)] transition-all hover:translate-y-[-2px] active:translate-y-0"
-            >
-              <Link href="/login">
-                {t("login")}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
+            <Link href="/login">
+              <Button size="sm" className="rounded-full px-6 shadow-md hover:shadow-lg transition-all active:scale-95 bg-blue-600 hover:bg-blue-700">
+                Login
+              </Button>
+            </Link>
           )}
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center gap-2">
-            <LanguageSwitcher />
+          {/* MOBILE MENU */}
+          <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary/10 hover:text-primary">
-                  <Menu size={24} />
+                <Button variant="ghost" size="icon" className="rounded-lg hover:bg-slate-100">
+                  <Menu className="h-6 w-6 text-slate-700" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="flex flex-col w-full p-0 sm:max-w-sm border-l-0">
-                <SheetHeader className="p-6 border-b text-left">
-                    <SheetTitle className="flex items-center gap-2">
-                         <div className="p-2 bg-primary rounded-lg text-white">
-                            <Stethoscope size={20} />
-                         </div>
-                         SOZO Dental
-                    </SheetTitle>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <SheetHeader className="text-left mb-8 border-b pb-4">
+                  <SheetTitle className="flex items-center gap-2">
+                    <Stethoscope className="text-blue-600" /> SOZO Dental
+                  </SheetTitle>
                 </SheetHeader>
-                
-                <div className="flex flex-col gap-2 p-6 flex-1">
-                  {navLinks.map((link, idx) => (
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        key={link.name}
+                <nav className="flex flex-col gap-2">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href as any}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "flex items-center px-4 py-3 text-lg font-semibold rounded-xl transition-all",
+                        pathname === link.href 
+                          ? "bg-blue-50 text-blue-600" 
+                          : "text-slate-600 hover:bg-slate-50"
+                      )}
                     >
-                        <Link
-                        href={link.href as any}
-                        onClick={() => setIsOpen(false)}
-                        className={cn(
-                            "flex items-center justify-between p-4 rounded-2xl text-lg font-semibold transition-all",
-                            pathname === link.href 
-                                ? "bg-primary/5 text-primary border border-primary/10" 
-                                : "hover:bg-slate-50 text-slate-600"
-                        )}
-                        >
-                        {link.name}
-                        {pathname === link.href && <Sparkles size={16} className="animate-pulse" />}
-                        </Link>
-                    </motion.div>
+                      {link.name}
+                    </Link>
                   ))}
-                </div>
-
-                <div className="p-6 mt-auto border-t bg-slate-50/50">
-                  {session ? (
-                    <Button variant="destructive" className="w-full h-14 rounded-2xl text-lg" onClick={() => signOut({ callbackUrl: "/" })}>
-                      <LogOut className="mr-2 h-5 w-5" />
-                      {t("logout")}
-                    </Button>
+                  
+                  {isLoggedIn ? (
+                    <>
+                      <Link
+                        href="/booking"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center px-4 py-3 text-lg font-semibold rounded-xl bg-blue-600 text-white mt-2"
+                      >
+                        {safeT("booking", "Reservasi Sekarang")}
+                      </Link>
+                      <Link
+                        href="/dashboard/patient"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center px-4 py-3 text-lg font-semibold rounded-xl text-slate-600 hover:bg-slate-50"
+                      >
+                        Dashboard
+                      </Link>
+                    </>
                   ) : (
-                    <Button asChild className="w-full h-14 rounded-2xl text-lg shadow-xl shadow-primary/20">
-                      <Link href="/login" onClick={() => setIsOpen(false)}>{t("login")}</Link>
-                    </Button>
+                    <Link
+                      href="/login"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center px-4 py-3 text-lg font-semibold rounded-xl bg-blue-600 text-white mt-2"
+                    >
+                      Login
+                    </Link>
                   )}
-                  <p className="mt-4 text-center text-sm text-slate-500 font-medium flex items-center justify-center gap-2">
-                    <Phone size={14} /> {t("emergencyCall")}: +62 21 1234 5678
-                  </p>
-                </div>
+                  
+                  <div className="mt-4 pt-4 border-t px-4">
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Pengaturan</p>
+                    <LanguageSwitcher />
+                  </div>
+                </nav>
               </SheetContent>
             </Sheet>
           </div>

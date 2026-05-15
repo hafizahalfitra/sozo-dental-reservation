@@ -13,7 +13,7 @@ enum Role {
   DOCTOR
 }
 
-enum AppointmentStatus {
+enum BookingStatus {
   PENDING
   CONFIRMED
   CANCELLED
@@ -21,48 +21,49 @@ enum AppointmentStatus {
 }
 
 model User {
-  id           String        @id @default(cuid())
-  name         String
-  email        String        @unique
-  password     String
-  role         Role          @default(PATIENT)
-  appointments Appointment[]
-  createdAt    DateTime      @default(now())
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  password  String
+  role      Role      @default(PATIENT)
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
 }
 
 model Doctor {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   name           String
   specialization String
   image          String?
   experience     Int
-  available      Boolean  @default(true)
-  createdAt      DateTime @default(now())
-
-  appointments   Appointment[]
+  available      Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  bookings       Booking[]
 }
 
 model Service {
-  id           String        @id @default(cuid())
-  title        String
-  description  String
-  duration     Int           // minutes
-  price        Int           // in IDR (cents-free)
-  appointments Appointment[]
-  createdAt    DateTime      @default(now())
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  duration    Int       // minutes
+  price       Int       // in IDR (cents-free)
+  bookings    Booking[]
+  createdAt   DateTime  @default(now())
 }
 
-model Appointment {
-  id              String            @id @default(cuid())
-  patientId       String
-  patient         User              @relation(fields: [patientId], references: [id])
+model Booking {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
   doctorId        String
-  doctor          Doctor            @relation(fields: [doctorId], references: [id])
+  doctor          Doctor        @relation(fields: [doctorId], references: [id])
   serviceId       String
-  service         Service           @relation(fields: [serviceId], references: [id])
+  service         Service       @relation(fields: [serviceId], references: [id])
+  patientName     String
+  patientPhone    String
   appointmentDate DateTime
   appointmentTime String
   notes           String?
-  status          AppointmentStatus @default(PENDING)
-  createdAt       DateTime          @default(now())
+  status          BookingStatus @default(PENDING)
+  createdAt       DateTime      @default(now())
 }

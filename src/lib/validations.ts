@@ -17,7 +17,9 @@ export const registerSchema = z
     path: ["confirmPassword"],
   });
 
-export const appointmentSchema = z.object({
+export const bookingSchema = z.object({
+  patientName: z.string().min(2, "Name must be at least 2 characters"),
+  patientPhone: z.string().min(10, "Phone number must be at least 10 characters"),
   doctorId: z.string().min(1, "Please select a doctor"),
   serviceId: z.string().min(1, "Please select a service"),
   appointmentDate: z.string().min(1, "Please select a date"),
@@ -27,4 +29,4 @@ export const appointmentSchema = z.object({
 
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
-export type AppointmentInput = z.infer<typeof appointmentSchema>;
+export type BookingInput = z.infer<typeof bookingSchema>;

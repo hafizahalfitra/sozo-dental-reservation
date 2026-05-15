@@ -17,29 +17,29 @@ export async function PATCH(
     const body = await req.json();
     const { status } = body;
 
-    const appointment = await prisma.appointment.findUnique({
+    const booking = await prisma.booking.findUnique({
       where: { id },
     });
 
-    if (!appointment) {
-      return NextResponse.json({ success: false, error: "Appointment not found" }, { status: 404 });
+    if (!booking) {
+      return NextResponse.json({ success: false, error: "Booking not found" }, { status: 404 });
     }
 
     // Only owner (patient) or admin can update
-    if (session.user.role !== "ADMIN" && appointment.patientId !== session.user.id) {
+    if (session.user.role !== "ADMIN" && booking.userId !== session.user.id) {
       return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
     }
 
-    const updated = await prisma.appointment.update({
+    const updated = await prisma.booking.update({
       where: { id },
       data: { status },
     });
 
     return NextResponse.json({ success: true, data: updated });
   } catch (error) {
-    console.error("[APPOINTMENT_PATCH]", error);
+    console.error("[BOOKING_PATCH]", error);
     return NextResponse.json(
-      { success: false, error: "Failed to update appointment" },
+      { success: false, error: "Failed to update booking" },
       { status: 500 }
     );
   }

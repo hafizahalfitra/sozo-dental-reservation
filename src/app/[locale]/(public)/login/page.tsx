@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
+import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +26,7 @@ import { Loader2 } from "lucide-react";
 export default function LoginPage() {
   const t = useTranslations("auth.login");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<LoginInput>({
@@ -49,7 +51,8 @@ export default function LoginPage() {
       } else {
         toast.success("Login successful");
         router.refresh();
-        router.push("/dashboard");
+        const callbackUrl = searchParams.get("redirect") || "/";
+        router.push(callbackUrl as any);
       }
     } catch (error) {
       toast.error("An error occurred during login");

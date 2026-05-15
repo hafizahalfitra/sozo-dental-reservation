@@ -1,6 +1,6 @@
-import { AppointmentStatus, Role } from "@prisma/client";
+import { BookingStatus, Role } from "@prisma/client";
 
-export type { AppointmentStatus, Role };
+export type { BookingStatus, Role };
 
 export interface UserType {
   id: string;
@@ -29,20 +29,21 @@ export interface ServiceType {
   createdAt: Date;
 }
 
-export interface AppointmentType {
+export interface BookingType {
   id: string;
-  patientId: string;
+  userId: string;
   doctorId: string;
   serviceId: string;
   appointmentDate: Date;
   appointmentTime: string;
   notes: string | null;
-  status: AppointmentStatus;
+  status: BookingStatus;
   createdAt: Date;
-  patient?: UserType;
+  user?: UserType;
   doctor?: DoctorType;
   service?: ServiceType;
 }
+
 
 export interface ApiResponse<T = unknown> {
   success: boolean;

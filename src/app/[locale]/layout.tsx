@@ -7,7 +7,8 @@ import { Poppins } from "next/font/google";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
+  display: 'swap',
 });
 
 import { AuthProvider } from "@/components/providers/auth-provider";
@@ -32,7 +33,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${poppins.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className={`${poppins.className} min-h-full flex flex-col antialiased`}>
         <AuthProvider>
           <NextIntlClientProvider messages={messages}>
             {children}

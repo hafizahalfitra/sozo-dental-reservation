@@ -41,13 +41,7 @@ export default function DoctorCard({
             {specialty}
           </Badge>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-          <Button asChild className="w-full rounded-xl shadow-xl">
-            <Link href={`/doctors/${id}` as any}>
-              {t("viewProfile")}
-            </Link>
-          </Button>
-        </div>
+
       </div>
       <CardHeader className="p-5 pb-0">
         <div className="flex justify-between items-start">

@@ -146,6 +146,21 @@
     }
   },
   "booking": {
+    "title": "Booking System",
+    "subtitle": "Manage your dental appointments in one place.",
+    "submit": "Confirm Booking",
+    "form": {
+      "name": "Full Name",
+      "phone": "Phone Number",
+      "doctor": "Select Doctor",
+      "service": "Select Service",
+      "date": "Date",
+      "time": "Time",
+      "notes": "Notes (Optional)",
+      "submit": "Confirm Booking",
+      "success": "Booking created successfully!",
+      "error": "Failed to create booking. Please try again."
+    },
     "dashboard": {
       "title": "Booking System",
       "subtitle": "Manage your dental appointments in one place.",
@@ -155,11 +170,15 @@
         "history": "Booking History"
       },
       "form": {
+        "name": "Full Name",
+        "namePlaceholder": "Patient Name",
+        "phone": "Phone Number",
         "doctor": "Select Doctor",
         "service": "Select Service",
         "date": "Date",
         "time": "Time",
         "notes": "Notes (Optional)",
+        "notesPlaceholder": "Provide details of your symptoms or additional notes...",
         "submit": "Confirm Booking",
         "success": "Booking created successfully!",
         "error": "Failed to create booking. Please try again."
@@ -172,11 +191,11 @@
         "empty": "No booking history yet."
       },
       "status": {
-      "pending": "Pending",
-      "approved": "Approved",
-      "rejected": "Rejected",
-      "completed": "Completed"
-    }
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "completed": "Completed"
+      }
     }
   }
 }

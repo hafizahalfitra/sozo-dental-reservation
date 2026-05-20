@@ -9,32 +9,41 @@ import { ArrowRight } from "lucide-react";
 
 const featuredDoctors = [
   {
-    id: "dr-sarah-johnson",
-    name: "Dr. Sarah Johnson",
-    specialty: "Orthodontist",
-    image: "https://images.unsplash.com/photo-1559839734-2b71f1536783?q=80&w=1170&auto=format&fit=crop",
+    id: "drg-jesica-amanda",
+    name: "drg. Jesica Amanda, Sp.RKG",
+    specialty: "Radiologi Kedokteran Gigi",
+    image: "/jesica.jpg",
     rating: 4.9,
     reviews: 124,
-    experience: 12,
-  },
-  {
-    id: "dr-michael-chen",
-    name: "Dr. Michael Chen",
-    specialty: "General Dentist",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop",
-    rating: 4.8,
-    reviews: 98,
     experience: 8,
   },
   {
-    id: "dr-emily-williams",
-    name: "Dr. Emily Williams",
-    specialty: "Pediatric Dentist",
-    image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1170&auto=format&fit=crop",
-    rating: 5.0,
-    reviews: 156,
-    experience: 15,
+    id: "drg-deviana-maria",
+    name: "drg. Deviana Maria, Sp.Ort",
+    specialty: "Ortodonti (Kawat Gigi)",
+    image: "/Deviana.jpg",
+    rating: 4.8,
+    reviews: 98,
+    experience: 10,
   },
+  {
+    id: "drg-muhammad-ikbal",
+    name: "drg. Muhammad Ikbal, Sp.Pros",
+    specialty: "Prostodonti (Implan & Mahkota Gigi)",
+    image: "/Muhammad.jpg",
+    rating: 4.9,
+    reviews: 112,
+    experience: 12,
+  },
+  {
+    id: "drg-ananta-wicaksono",
+    name: "drg. Ananta Wicaksono, Sp.KGA",
+    specialty: "Kedokteran Gigi Anak",
+    image: "/Ananta.jpg",
+    rating: 5.0,
+    reviews: 143,
+    experience: 6,
+  }
 ];
 
 export default function DoctorPreviewSection() {
@@ -64,7 +73,7 @@ export default function DoctorPreviewSection() {
             <DoctorCard key={doctor.id} {...doctor} />
           ))}
         </div>
-        
+
         {/* Mobile view only button */}
         <div className="mt-10 md:hidden">
           <Button asChild variant="outline" className="w-full rounded-xl py-6 border-slate-200 text-primary">

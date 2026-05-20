@@ -99,13 +99,13 @@ export default function HeroSection() {
                   </Link>
                 </Button>
 
-                <button className="group flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase text-slate-500 hover:text-primary transition-all">
+                {/* <button className="group flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase text-slate-500 hover:text-primary transition-all">
                   <div className="h-14 w-14 rounded-full border-2 border-slate-200 dark:border-slate-800 flex items-center justify-center relative overflow-hidden">
                     <Play size={16} className="fill-current relative z-10" />
                     <div className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
                   </div>
                   <span>{t("watchTour")}</span>
-                </button>
+                </button> */}
               </motion.div>
 
               {/* Trust Section */}
